@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Devarsh
-Date                   :=09/10/20
+Date                   :=13/10/20
 CodeLitePath           :=/home/humfung/.codelite
 LinkerName             :=/usr/bin/g++
 SharedObjectLinkerName :=/usr/bin/g++ -shared -fPIC
@@ -60,7 +60,7 @@ AS       := /usr/bin/as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/up_up_up_Pictures_FuelOverTime.cpp$(ObjectSuffix) $(IntermediateDirectory)/up_up_up_Pictures_TrafficTimings.cpp$(ObjectSuffix) $(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/Dijkstra.cpp$(ObjectSuffix) $(IntermediateDirectory)/Interface.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/up_up_up_Pictures_GenerateCostMatrix.cpp$(ObjectSuffix) $(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/up_up_up_Pictures_TrafficTimings.cpp$(ObjectSuffix) $(IntermediateDirectory)/up_up_up_Pictures_FuelOverTime.cpp$(ObjectSuffix) $(IntermediateDirectory)/Dijkstra.cpp$(ObjectSuffix) $(IntermediateDirectory)/Interface.cpp$(ObjectSuffix) 
 
 
 
@@ -91,11 +91,17 @@ PreBuild:
 ##
 ## Objects
 ##
-$(IntermediateDirectory)/up_up_up_Pictures_FuelOverTime.cpp$(ObjectSuffix): ../../../Pictures/FuelOverTime.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/up_up_up_Pictures_FuelOverTime.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/up_up_up_Pictures_FuelOverTime.cpp$(DependSuffix) -MM ../../../Pictures/FuelOverTime.cpp
-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/humfung/Pictures/FuelOverTime.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/up_up_up_Pictures_FuelOverTime.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/up_up_up_Pictures_FuelOverTime.cpp$(PreprocessSuffix): ../../../Pictures/FuelOverTime.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/up_up_up_Pictures_FuelOverTime.cpp$(PreprocessSuffix) ../../../Pictures/FuelOverTime.cpp
+$(IntermediateDirectory)/up_up_up_Pictures_GenerateCostMatrix.cpp$(ObjectSuffix): ../../../Pictures/GenerateCostMatrix.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/up_up_up_Pictures_GenerateCostMatrix.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/up_up_up_Pictures_GenerateCostMatrix.cpp$(DependSuffix) -MM ../../../Pictures/GenerateCostMatrix.cpp
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/humfung/Pictures/GenerateCostMatrix.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/up_up_up_Pictures_GenerateCostMatrix.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/up_up_up_Pictures_GenerateCostMatrix.cpp$(PreprocessSuffix): ../../../Pictures/GenerateCostMatrix.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/up_up_up_Pictures_GenerateCostMatrix.cpp$(PreprocessSuffix) ../../../Pictures/GenerateCostMatrix.cpp
+
+$(IntermediateDirectory)/main.cpp$(ObjectSuffix): main.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/main.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/main.cpp$(DependSuffix) -MM main.cpp
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/humfung/Documents/NEA_Project_Swyft/Swyft/main.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/main.cpp$(PreprocessSuffix): main.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/main.cpp$(PreprocessSuffix) main.cpp
 
 $(IntermediateDirectory)/up_up_up_Pictures_TrafficTimings.cpp$(ObjectSuffix): ../../../Pictures/TrafficTimings.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/up_up_up_Pictures_TrafficTimings.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/up_up_up_Pictures_TrafficTimings.cpp$(DependSuffix) -MM ../../../Pictures/TrafficTimings.cpp
@@ -103,11 +109,11 @@ $(IntermediateDirectory)/up_up_up_Pictures_TrafficTimings.cpp$(ObjectSuffix): ..
 $(IntermediateDirectory)/up_up_up_Pictures_TrafficTimings.cpp$(PreprocessSuffix): ../../../Pictures/TrafficTimings.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/up_up_up_Pictures_TrafficTimings.cpp$(PreprocessSuffix) ../../../Pictures/TrafficTimings.cpp
 
-$(IntermediateDirectory)/main.cpp$(ObjectSuffix): main.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/main.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/main.cpp$(DependSuffix) -MM main.cpp
-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/humfung/Documents/NEA_Project_Swyft/Swyft/main.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/main.cpp$(PreprocessSuffix): main.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/main.cpp$(PreprocessSuffix) main.cpp
+$(IntermediateDirectory)/up_up_up_Pictures_FuelOverTime.cpp$(ObjectSuffix): ../../../Pictures/FuelOverTime.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/up_up_up_Pictures_FuelOverTime.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/up_up_up_Pictures_FuelOverTime.cpp$(DependSuffix) -MM ../../../Pictures/FuelOverTime.cpp
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/humfung/Pictures/FuelOverTime.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/up_up_up_Pictures_FuelOverTime.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/up_up_up_Pictures_FuelOverTime.cpp$(PreprocessSuffix): ../../../Pictures/FuelOverTime.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/up_up_up_Pictures_FuelOverTime.cpp$(PreprocessSuffix) ../../../Pictures/FuelOverTime.cpp
 
 $(IntermediateDirectory)/Dijkstra.cpp$(ObjectSuffix): Dijkstra.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Dijkstra.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/Dijkstra.cpp$(DependSuffix) -MM Dijkstra.cpp
