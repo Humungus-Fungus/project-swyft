@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "FunctionDeclarations.h"
+#include "../FunctionDeclarations.h"
 
 using namespace std;
 

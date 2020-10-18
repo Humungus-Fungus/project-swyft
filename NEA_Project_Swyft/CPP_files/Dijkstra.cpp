@@ -1,5 +1,5 @@
 #include <iostream>
-#include "FunctionDeclarations.h"
+#include "../FunctionDeclarations.h"
 
 using namespace std;
 

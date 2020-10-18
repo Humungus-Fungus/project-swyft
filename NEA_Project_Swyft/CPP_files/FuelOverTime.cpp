@@ -1,5 +1,5 @@
 #include <iostream>
-#include "/home/humfung/Documents/VS_Project_Swyft/project-swyft/NEA_Project_Swyft/FunctionDeclarations.h"
+#include "../FunctionDeclarations.h"
 
 // This function calculates the amount of fuel left at any point in the trip.
 float calc_fuel(float initial_fuel, float mileage, float distance) {

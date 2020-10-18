@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <list>
-#include "FunctionDeclarations.h"
+#include "../FunctionDeclarations.h"
 
 /* Todo: 
  [*] Add Djikstra's algorithm to find the shortest path ordinarily [DONE]
