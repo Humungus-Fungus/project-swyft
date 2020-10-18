@@ -1,4 +1,3 @@
-#include <functional>
 #include <iostream>
 #include <string>
 #include "FunctionDeclarations.h"
@@ -9,7 +8,7 @@ string get_cost_matrix(){
     int distance{0};
     int node_count{0}; // When we count the number of nodes
     bool first_time{true};
-    string string_matrix {""};
+    string string_matrix = "";
     
     // Iterating through each node
     for (int i{0}; i < node_count || first_time; i++) {        
@@ -19,14 +18,16 @@ string get_cost_matrix(){
             cin>>distance;
             cout<<' '<<endl;
             if (distance == -1) {
-                cout<<"exitted"<<endl;
+                cout<<"-Next node-"<<endl;
                 first_time = false;
                 break;
             }
-            string_matrix += to_string(distance) + " ";
+            string_matrix += std::to_string(distance) + " ";
             (first_time) ? node_count++ : node_count+=0; // Each extra distance we add creates a new instance of a node
-            cout << "\ni: " << i << endl;
-            cout << "nodes: " << node_count << endl;
+            
+            // For debugging
+            // cout << "\ni: " << i << endl;
+            // cout << "nodes: " << node_count << endl;
         }
         string_matrix += '\n';
         

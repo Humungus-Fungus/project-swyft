@@ -1,5 +1,5 @@
 // declarations of functions
-
+#include <string>
 // Interface
 void interface();
 

@@ -27,7 +27,7 @@ void keep_open() {
 }
 
 int main() { 
-    string matrix {get_cost_matrix()};
+    string matrix = get_cost_matrix();
     //inputs_for_dijkstra();
     //interface();
     
