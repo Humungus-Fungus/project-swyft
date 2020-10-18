@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <list>
 #include "FunctionDeclarations.h"
 
@@ -26,7 +27,7 @@ void keep_open() {
 }
 
 int main() { 
-    get_cost_matrix(3, 4);
+    string matrix {get_cost_matrix()};
     //inputs_for_dijkstra();
     //interface();
     

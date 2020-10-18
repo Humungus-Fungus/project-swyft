@@ -14,4 +14,4 @@ void initialise();
 void inputs_for_dijkstra();
 void dijkstra();
 //Addition to dijkstra
-std::string get_cost_matrix(int,int);
+std::string get_cost_matrix();
