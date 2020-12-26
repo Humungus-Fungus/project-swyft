@@ -79,6 +79,13 @@ void display() {
 }
 
 void inputs_for_dijkstra() {
+    //  Add the GenerateCostMatrix functionality to this, so as to accept its input.
+    string unprocessed_matrix = get_cost_matrix(&vertices); // Generates cost matrix, and gets vertices
+    for (int i{0}; i < vertices; i++) {
+        for (int j{0}; j < vertices; j++) {
+            
+        }
+    }
     cout << "Enter the number of vertices: " << endl;
     cin >> vertices; // Get the number of vertices
     cout << "Thank you, now enter the cost matrix" << endl;

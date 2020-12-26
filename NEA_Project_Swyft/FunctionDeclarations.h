@@ -1,5 +1,27 @@
-// declarations of functions
-#include <string>
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+// Declarations of Methods
+
+// Print contents of an array/vector
+void print_array(int[], size_t);
+void print_array(double[], size_t);
+void print_array(vector<int>);
+void print_array(vector<double>);
+
+// returns the biggest of the two
+int max(int,int);
+double max(double,double);
+
+// add values straight into a vector from cin
+vector<int> vec_add(vector<int>,size_t);
+vector<double> vec_add(vector<double>,size_t);
+
+//Keeps prompt open
+void keep_open();
+
 // Interface
 void interface();
 
@@ -14,4 +36,11 @@ void initialise();
 void inputs_for_dijkstra();
 void dijkstra();
 //Addition to dijkstra
-std::string get_cost_matrix();
+string get_cost_matrix(int *node_number);
+
+// For traffic light regression
+float calc_unknown(float, float, char);
+vector<int> get_seq();
+
+// Gets the final sequence
+vector<int> get_final_seq(vector<vector<int>>,vector<int>,vector<int>,const int le=1, int inc=0);

@@ -5,7 +5,7 @@
 
 using namespace std;
 
-string get_cost_matrix(){
+string get_cost_matrix(int *node_number){
     int distance{0}; // Represents the weight of each connection in a weighted graph [manual]
     bool first_time{1}; // Allows for loop to allow forst loop without ending early [manual]
     int node_search{0}; // Searches for the number of nodes [automatic]
@@ -45,6 +45,8 @@ string get_cost_matrix(){
             if (i % node_count == 0) string_matrix += "\n";  // Add a newline if the node count has been
             // reached.
         }
+
+        cout << "Final node count for automatic: " << node_count << endl;
     } else {
     // Manual
     // Iterating through each node
@@ -72,5 +74,6 @@ string get_cost_matrix(){
         cout<< "Manual string matrix: " <<string_matrix;
     }
 
+    *node_number = node_count; // Node count should also be extracted. It'll be useful for dijkstra
     return string_matrix;
 }
