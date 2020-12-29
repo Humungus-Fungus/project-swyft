@@ -33,14 +33,14 @@ float calc_fuel_percentage(float,float);
 int get_nearest_node();
 void inputs_for_dijkstra();
 void initialise();
-void inputs_for_dijkstra();
+void inputs_for_dijkstra(int,vector<int>);
 void dijkstra();
 //Addition to dijkstra
-string get_cost_matrix(int *node_number);
+string get_cost_matrix(int &node_number);
 
 // For traffic light regression
 float calc_unknown(float, float, char);
 vector<int> get_seq();
 
 // Gets the final sequence
-vector<int> get_final_seq(vector<vector<int>>,vector<int>,vector<int>,const int le=1, int inc=0);
+vector<int> get_final_seq(vector<vector<int>>,vector<int>,vector<int>,const int le=5,int inc=0);

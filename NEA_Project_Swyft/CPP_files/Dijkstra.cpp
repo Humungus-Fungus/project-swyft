@@ -10,7 +10,7 @@ int vertices, start_node, cost[100][100]; // using cost matrix for graph
 
 int dist[100]; // storing a distance value for all nodes (from start node)
 
-bool visited[100] = {0};
+bool visited[100] = {0}; // Whether the node has been visited or not
 
 int parent_node[100]; // The index will be the key, the value will be the parent
 
@@ -78,24 +78,28 @@ void display() {
     cin >> x;
 }
 
-void inputs_for_dijkstra() {
-    //  Add the GenerateCostMatrix functionality to this, so as to accept its input.
-    string unprocessed_matrix = get_cost_matrix(&vertices); // Generates cost matrix, and gets vertices
-    for (int i{0}; i < vertices; i++) {
-        for (int j{0}; j < vertices; j++) {
-            
-        }
-    }
-    cout << "Enter the number of vertices: " << endl;
-    cin >> vertices; // Get the number of vertices
+void inputs_for_dijkstra(int roads, vector<int> matrix) {   
+    vertices = roads; // Now the vertices global variable has been updated to the number of roads (which it is)
+
     cout << "Thank you, now enter the cost matrix" << endl;
     
+    // Old way of getting cost matrix. We live in the future now.
+    /*
     for (int i {0}; i < vertices; i++) {
         for (int j {0}; j < vertices; j++) {
             //cout << "Enter the distance between node " << i << " and node " << j << ": " << endl;
             cin >> cost[i][j];
         }
     }
+    */
+   int counter {0};
+   for (int i {0}; i < vertices; i++) {
+        for (int j {0}; j < vertices; j++) {
+            cost[i][j] = matrix[counter];
+            counter++;
+        }
+    }
+
     cout << "Thank you for the cost matrix, now enter the start node: ";
     cin >> start_node;
     cout << "Done." << endl;
