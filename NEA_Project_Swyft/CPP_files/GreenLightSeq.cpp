@@ -21,10 +21,10 @@ vector<int> get_seq() {
 	total_duration = green_duration + red_duration;
 
 	terms_per_day =
-		(int)(((86400 - green_duration - 2 * red_duration) / (2 * total_duration)) + 1); // Edited so that only the first hour is recorded instead of the whole day.
+		(int)(((360 - green_duration - 2 * red_duration) / (2 * total_duration)) + 1); // Edited so that only the first hour is recorded instead of the whole day.
 	cout << "terms per day: " << terms_per_day << endl;
 	
-	vector<int> seq(terms_per_day);// This will hold the final sequence for the traffic light
+	vector<int> seq(terms_per_day);  // This will hold the final sequence for the traffic light
 
 	for (int i{0}; i < terms_per_day; i++) 
 	{

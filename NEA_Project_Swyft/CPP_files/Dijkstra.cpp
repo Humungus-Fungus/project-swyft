@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+#include <algorithm>
 #include "../FunctionDeclarations.h"
 
 using namespace std;
@@ -58,40 +60,36 @@ void dijkstra() {
     cout << "Dijkstra ending..." << endl;
 }
 
-void display() {
-    cout << "Node:\t\t\tCost:\t\t\tPath" << endl;
+vector<int> display(int destination) {
+    vector<int> path;
+    
+    cout << "Node:\t\t\tCost:\t\t\tPath:" << endl;
     
     for (int i {0}; i < vertices; i++) {
-        cout << i << "\t\t\t" << dist[i] << "\t\t\t" << " ";
-        
+        cout << i << "\t\t\t" << dist[i] << "\t\t\t";
+
         cout << i << " ";
         int parnode = parent_node[i];
-        
+        if (i==destination) path.push_back(cost[parnode][i]);
+
         while (parnode != start_node) {
             cout << " <-- " << parnode << " ";
+            if (i==destination) path.push_back(cost[parent_node[parnode]][parnode]);
             parnode = parent_node[parnode];
         }
-        cout << endl;
+        cout << endl; // Now, we have the road lengths, but in reverse order. To fix this, they will be reversed
     }
-    cout << "Press any key to continue";
-    auto x {0};
-    cin >> x;
+    reverse(path.begin(), path.end()); // road lengths are now prepared via paths
+    cout << endl;
+
+    return path;
 }
 
-void inputs_for_dijkstra(int roads, vector<int> matrix) {   
+vector<int> inputs_for_dijkstra(int roads, vector<int> matrix, int target) {   
     vertices = roads; // Now the vertices global variable has been updated to the number of roads (which it is)
 
     cout << "Thank you, now enter the cost matrix" << endl;
-    
-    // Old way of getting cost matrix. We live in the future now.
-    /*
-    for (int i {0}; i < vertices; i++) {
-        for (int j {0}; j < vertices; j++) {
-            //cout << "Enter the distance between node " << i << " and node " << j << ": " << endl;
-            cin >> cost[i][j];
-        }
-    }
-    */
+
    int counter {0};
    for (int i {0}; i < vertices; i++) {
         for (int j {0}; j < vertices; j++) {
@@ -105,7 +103,9 @@ void inputs_for_dijkstra(int roads, vector<int> matrix) {
     cout << "Done." << endl;
     initialise();
     dijkstra();
-    display();
+    vector<int> road_lens = display(target);
+    // print_array(road_lens);
+    return road_lens;
 }
 
 /*

@@ -39,18 +39,10 @@ int main() {
 	}
 	// Vector matrix is now complete and ready to use
 
-	inputs_for_dijkstra(roads, matrix);
-
+	vector<int> road_lengths = inputs_for_dijkstra(roads, matrix, 7);
+	print_array(road_lengths);
 
 	vector<int> final_seq; // Will store the final sequence
-
-	// This will change later once I integrate this with Dijkstra, then the cost
-	// will be used directly
-	vector<double> road_lengths;
-
-	cout << "Enter the length of the roads: " << endl;
-	road_lengths = vec_add(road_lengths, roads);	
-	
 	vector<vector<int>> seqs; // Holds all sequences
 
 	// Now seqs is ready, and in its final form.
@@ -59,8 +51,7 @@ int main() {
 		vector<int> seq = get_seq();
 		seqs.push_back(seq);
 	}
-	
-	
+
 
 	// Next, find times for roads (cumulative).
 	vector<double> times;
@@ -69,7 +60,7 @@ int main() {
 
 	for (int i{0}; i < roads; i++) 
 	{
-		single_time += calc_unknown(road_lengths[i], vel_car, 't');
+		single_time += calc_unknown(road_lengths[i], vel_car, 't'); // segmentation fault here
 		times.push_back(single_time);
 	}
 	
@@ -78,6 +69,7 @@ int main() {
 	
 	// Terms of the final sequence, n, n+time1, n+time2 (ideal, not actual values from lights)
 	vector<int> vals;
+	
 
 	for (int i{0}; i < seqs[0].size(); i++) 
 	{
@@ -91,8 +83,9 @@ int main() {
 		final_seq = get_final_seq(seqs, vals, final_seq, le);
 		// Display contents of final seq - see if it works!
 		//cout << "Size of final_seq: " << final_seq.size() << endl;
-		
-		if (final_seq.size() == 3) print_array(final_seq);
+		print_array(final_seq);
+
+		// if (final_seq.size() == roads) print_array(final_seq);
 		vals.clear();
     }
 
