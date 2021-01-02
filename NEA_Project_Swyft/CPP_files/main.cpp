@@ -20,7 +20,7 @@
 using namespace std;
 
 int main() {
-	const unsigned int le = 10; // Leniency factor
+	const unsigned int le = 30; // Leniency factor
 	const float vel_car{10}; // Assuming that the car travels at 10 meters per second
 	// const unsigned int roads{3}; // The number of roads
     
@@ -48,7 +48,7 @@ int main() {
 	// Now seqs is ready, and in its final form.
 	for (int i{0}; i < roads; i++) 
 	{
-		vector<int> seq = get_seq();
+		vector<int> seq = get_seq(i);
 		seqs.push_back(seq);
 	}
 
@@ -82,10 +82,10 @@ int main() {
 		// next, get final seq
 		final_seq = get_final_seq(seqs, vals, final_seq, le);
 		// Display contents of final seq - see if it works!
-		//cout << "Size of final_seq: " << final_seq.size() << endl;
-		print_array(final_seq);
+		cout << "Size of final_seq: " << final_seq.size() << endl;
+		// print_array(final_seq);
 
-		// if (final_seq.size() == roads) print_array(final_seq);
+		if (final_seq.size() == roads) print_array(final_seq);
 		vals.clear();
     }
 

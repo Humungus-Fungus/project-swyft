@@ -40,7 +40,7 @@ string get_cost_matrix(int &node_number);
 
 // For traffic light regression
 float calc_unknown(float, float, char);
-vector<int> get_seq();
+vector<int> get_seq(int);
 
 // Gets the final sequence
 vector<int> get_final_seq(vector<vector<int>>,vector<int>,vector<int>,const int le=5,int inc=0);
