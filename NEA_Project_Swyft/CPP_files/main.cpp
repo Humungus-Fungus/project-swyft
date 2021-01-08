@@ -21,9 +21,8 @@ using namespace std;
 
 int main() {
 	const unsigned int le = 30; // Leniency factor
-	const float vel_car{10}; // Assuming that the car travels at 10 meters per second
+	const float vel_car{0.1}; // Assuming that the car travels at 10 meters per second
 	// const unsigned int roads{3}; // The number of roads
-    
 	int roads;
 
 	string str_matrix;
@@ -42,13 +41,19 @@ int main() {
 	vector<int> road_lengths = inputs_for_dijkstra(roads, matrix, 7);
 	print_array(road_lengths);
 
+	// REMEMBER: WE ARE NOT USING 'ROADS' FOR THE LIGHTS FUNCTIONALITY, WE ARE USING THE NUMBER OF ROADS
+	// IN THE PATH I.E. 3 IN THIS CASE
+
+	roads = road_lengths.size();
+	
 	vector<int> final_seq; // Will store the final sequence
 	vector<vector<int>> seqs; // Holds all sequences
 
+	
 	// Now seqs is ready, and in its final form.
 	for (int i{0}; i < roads; i++) 
 	{
-		vector<int> seq = get_seq(i);
+		vector<int> seq = get_seq(i); // get_seq(i==8) creates an error
 		seqs.push_back(seq);
 	}
 
@@ -83,12 +88,16 @@ int main() {
 		final_seq = get_final_seq(seqs, vals, final_seq, le);
 		// Display contents of final seq - see if it works!
 		cout << "Size of final_seq: " << final_seq.size() << endl;
-		// print_array(final_seq);
 
+		// For when the size is as it should be
 		if (final_seq.size() == roads) print_array(final_seq);
+		else if (final_seq.size() > roads)
+		{
+			vector<int> sub_final(&final_seq[0], &final_seq[3]); // Takes just the first 3 terms
+			print_array(sub_final);
+		}
 		vals.clear();
     }
-
     // interface();
     
     keep_open();

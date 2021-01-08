@@ -29,8 +29,6 @@ vector<int> get_final_seq(vector<vector<int>> seqs, vector<int> vals, vector<int
 			if (lower_bound < seqs[inc][i] && seqs[inc][i] < upper_bound)
 			{
 				final.push_back(seqs[inc][i]);
-				//cout << "match found! " << seqs[inc][i] << " is between " << lower_bound << " and " << upper_bound << endl;
-				//cout << final[inc] << endl;
 				final = get_final_seq(seqs, vals, final, le, inc+1);
 			}
 		}
