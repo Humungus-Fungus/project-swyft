@@ -1,8 +1,24 @@
 #include <iostream>
 #include <vector>
+#include <fstream>
 #include "../FunctionDeclarations.h"
 
 using namespace std;
+
+// Edits a text file
+void text_write(int val, string loc) {
+	ofstream file {loc};
+	file << val;
+	file.close();
+}
+
+// Reads from a text file
+const int text_read(string loc) {
+	ifstream file {loc};
+	int val;
+	file >> val;
+	return val;
+}
 
 //Keep prompt open
 void keep_open() {

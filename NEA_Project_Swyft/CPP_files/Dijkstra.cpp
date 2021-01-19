@@ -1,33 +1,41 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <fstream>
 #include "../FunctionDeclarations.h"
 
 using namespace std;
 
-const int infinity {999};
+// Boost all arrays declared here into vectors
+
+const unsigned long infinity {999};
+
+const int roads {text_read("Dummy Data/DummyData.txt")};
 
 // The way cost works: cost[x][y] is the distance (weight) between node x and node y
-int vertices, start_node, cost[100][100]; // using cost matrix for graph
+int vertices, start_node;
+vector<vector<int>> cost; // using cost matrix for graph
 
-int dist[100]; // storing a distance value for all nodes (from start node)
+vector<int> sub_cost(roads);
 
-bool visited[100] = {0}; // Whether the node has been visited or not
+vector<int> dist(roads); // storing a distance value for all nodes (from start node)
 
-int parent_node[100]; // The index will be the key, the value will be the parent
+vector<bool> visited(roads); // Whether the node has been visited or not
+
+vector<int> parent_node(roads); // The index will be the key, the value will be the parent
 
 // This procedure sets the distances to infinity for each vertex
-void initialise() {
+void initialise(/*long infinity*/) {
     for (int i {0}; i < vertices; i++) {
         parent_node[i] = i; // i is just a placeholder value, it'll be replaced by the actual parent soon
-        dist[i] = infinity;
+        dist[i] = ::infinity;
     }
     dist[start_node] = 0; // all distances are infinity at the start of the algorithm, except for the distance
     // between the start and the start, which is obviously 0.
 }
 
 int get_nearest_node() {
-    int min_value {infinity};
+    int min_value {::infinity};
     int closest_node {0};
     // looks through all nodes to return the closest one
     for (int i {0}; i < vertices; i++) {
@@ -51,7 +59,7 @@ void dijkstra() {
             // Note: dist[adj] is the old distance from start to adj. Col67 - Col111 is the candidate for the
             // new distance. In English: update the distance if the candidate is less than the old value, as the
             // old value could be the actual minimum
-            if (cost[nearest_node][adj] != infinity && dist[adj] > dist[nearest_node] + cost[nearest_node][adj]) {
+            if (cost[nearest_node][adj] != ::infinity && dist[adj] > dist[nearest_node] + cost[nearest_node][adj]) {
                 dist[adj] = dist[nearest_node] + cost[nearest_node][adj];
                 parent_node[adj] = nearest_node;
             }
@@ -86,7 +94,11 @@ vector<int> display(int destination) {
 }
 
 vector<int> inputs_for_dijkstra(int roads, vector<int> matrix, int target) {   
-    vertices = roads; // Now the vertices global variable has been updated to the number of roads (which it is)
+    ::vertices = roads; // Now the vertices global variable has been updated to the number of roads (which it is)
+
+    for (int i {0}; i < vertices; i++) {
+        cost.push_back(sub_cost);
+    }
 
     cout << "Thank you, now enter the cost matrix" << endl;
 
@@ -94,6 +106,7 @@ vector<int> inputs_for_dijkstra(int roads, vector<int> matrix, int target) {
    for (int i {0}; i < vertices; i++) {
         for (int j {0}; j < vertices; j++) {
             cost[i][j] = matrix[counter];
+            cout<<"this worked"<<endl;
             counter++;
         }
     }

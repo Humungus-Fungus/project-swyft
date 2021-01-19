@@ -22,6 +22,12 @@ vector<double> vec_add(vector<double>,size_t);
 //Keeps prompt open
 void keep_open();
 
+// Writes to a text file
+void text_write(int,string);
+
+// Reads from a text file
+const int text_read(string);
+
 // Interface
 void interface();
 

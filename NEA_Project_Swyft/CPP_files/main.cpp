@@ -5,7 +5,7 @@
 
 /* Todo: 
  [*] Add Djikstra's algorithm to find the shortest path ordinarily [DONE]
-  * Optimise to the dimensions of cost are equal to the number of vertices, saving space
+  * Optimise so the dimensions of cost are equal to the number of vertices, saving space
   [*] Find road lengths
  * Add Basic UI
  [*] Take into account the timings of the traffic lights (when they are green)
@@ -28,6 +28,9 @@ int main() {
 	string str_matrix;
 
 	str_matrix = get_cost_matrix(roads); // Now roads is set, and so is str_matrix
+
+	// store roads in dummy data
+	text_write(roads, "Dummy Data/DummyData.txt");	
     
 	// Now, we need to change str_matrix into a vector for Dijkstra
 	vector<int> matrix;
