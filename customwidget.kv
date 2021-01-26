@@ -1,0 +1,103 @@
+WinManager:
+  HomeScreen:
+  MapScreen:
+  SettingsScreen:
+
+<HomeScreen>:
+  name: "home"
+
+  destination_input: input
+
+  FloatLayout:
+    Button:
+      background_color: 0, 1, 0, 1
+      pos_hint: {"center_x": 0.55, "center_y": 0.625}
+      text: "Enter"
+      size_hint: 0.5, 0.25
+      on_release:
+        root.enter_dest()
+        app.root.current = "map"
+        root.manager.transition.direction = "left"
+
+    Button:
+      background_color: 0.5, 0, 1, 0.5
+      pos_hint: {"x":0, "top":1}
+      text: "Destination: "
+      size_hint: 0.3, 0.5
+
+    TextInput:
+      id: input
+      pos_hint: {"center_x": 0.55, "top":1}
+      size_hint: 0.5, 0.25
+
+    Button:
+      background_color: 1, 0.25, 0.25, 1
+      text: "Check map"
+      size_hint: 1, 0.5
+      on_release:
+        app.root.current = "map"
+        root.manager.transition.direction = "left"
+
+    Button:
+      pos_hint: {"x":0.8, "top":1}
+      size_hint: 0.2, 0.2
+      on_release:
+        print("settings")
+        app.root.current = "settings"
+        root.manager.transition.direction = "right"
+    Image:
+      source: "cog.png"
+      pos_hint: {"x":0.8, "top":1}
+      size_hint: 0.2, 0.2
+
+<MapScreen>:
+  name: "map"
+
+  MapView:
+    lat: 50
+    lon: 50
+    zoom: 5
+
+    Button:
+      text: "Back"
+      on_release:
+        app.root.current = "home"
+        root.manager.transition.direction = "right"
+
+<SettingsScreen>:
+  name: "settings"
+
+  FloatLayout:
+    Label:
+      text: "Home Location: "
+      size_hint: 0.2, 0.1
+      pos_hint: {"left":1, "top":1}
+
+    LabelB:
+      id: "home_loc"
+      bcolor: 1, 1, 1, 1
+      color: 0, 0, 0, 1
+      text: "Current home loc"
+      size_hint: 0.2, 0.1
+      pos_hint: {"right":0.4, "top":1}
+
+
+    Button:
+      text: "Change"
+      background_color: 1, 0.5, 0, 1
+      size_hint: 0.4, 0.1
+      pos_hint: {"left":1, "top":0.9}
+      on_release:
+        root.change_home_loc()
+
+<PopUpDesign>:
+  FloatLayout:
+    TextInput:
+      text: "New Home Location"
+      size_hint: 0.2, 0.2
+
+    Button:
+      text: "Close"
+      size_hint: 0.2, 0.2
+      on_release:
+        app.root.get_screen('settings').close_popup()
