@@ -38,7 +38,7 @@ float calc_fuel_percentage(float,float);
 // Shortest path - Dijkstra's algorithm
 int get_nearest_node();
 void initialise();
-vector<int> inputs_for_dijkstra(int,vector<int>,int);
+vector<int> inputs_for_dijkstra(int,vector<int>);
 void dijkstra();
 vector<int> display(int);
 //Addition to dijkstra

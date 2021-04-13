@@ -1,31 +1,24 @@
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <regex>
-#include "../FunctionDeclarations.h"
+#include <iostream> // allows input and output
+#include <fstream> // allows reading from/writing to other files
+#include <vector> // allows use of vectors
+#include <regex> // allows use of regular expressions for pattern matching
+#include "../FunctionDeclarations.h" // allows contents of this file to be used in other programs
 
-using namespace std;
+using namespace std; // eliminates the need for starting many commands with std::
 
 vector<int> get_seq(int light_pos) {
-	float red_duration; // CHANGE THIS ASAP
-	float green_duration; // CHANGE THIS ASAP
-	float total_duration;
-	size_t terms_per_day;
+	float red_duration; // will store the duration of a red light
+	float green_duration; // will store the duration of a green light
+	float total_duration; // will store the total duration
+	size_t terms_per_day; // number of terms in the sequence in one day
 
-	// Need to update, so that the data for durations is extracted from dummy data
-	/*cout << "Red light duration: ";
-	cin >> red_duration;
+	fstream dummy_text; // object to represent the new file
+	string raw_data; // Storest the text from the file
 
-	cout << "\nGreen light duration: ";
-	cin >> green_duration;
-	*/
-
-	fstream dummy_text;
-	string raw_data;
-
-	dummy_text.open("Dummy Data/DummyDataLights.csv", ios::in);
-	if (dummy_text.is_open()) {
-		string input;
+	dummy_text.open("Dummy Data/DummyDataLights.csv", ios::in); // opening the new file
+	if (dummy_text.is_open()) // checking that the file is indeed open
+	{
+		string input; // temporarily stores the contents of the external file being read from
 		while (getline(dummy_text, input)) {
 			raw_data += input;
 		}

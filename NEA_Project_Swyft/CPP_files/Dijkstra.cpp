@@ -106,7 +106,7 @@ vector<int> display(int destination) // Shows the output to the user
 vector<int> inputs_for_dijkstra(int roads, vector<int> matrix) // Method which obtains the inputs required for
 // Dijkstra to work
 {
-    int target; // Declaring the targer
+    int target; // Declaring the target
     ::vertices = roads; // Now the vertices global variable has been updated to the number of roads (which it is)
 
     for (int i {0}; i < vertices; i++) // looping through all the vertices in the graph
@@ -122,16 +122,27 @@ vector<int> inputs_for_dijkstra(int roads, vector<int> matrix) // Method which o
         for (int j {0}; j < vertices; j++) // looping through all vertices once more as we are using a 2D list
         {
             cost[i][j] = matrix[counter]; // The cost matrix to set to the matrix at this particular stage of the loop
-            cout<<"this worked"<<endl;
             counter++; // Counter increments
         }
     }
 
     cout << "Thank you for the cost matrix, now enter the start node: ";
     cin >> start_node; // User enters start node
+    while (!(start_node < vertices && start_node > 0)) // The start node cannot be less that 0 or greater than 
+    //the total number of nodes
+    {
+        cout << "Invalid start node, try again" << endl;
+        cin >> start_node; // User attempts to enter the start node again
+    }
     cout << "Done." << endl;
     cout << "Please enter the target node: ";
     cin >> target; // User enterts the target node
+    while (!(target >= 0 && target < vertices && target != start_node)) // The target must be between 0 and the 
+    // total number of nodes, and can't be the start node either
+    {
+        cout << "Invalid target, try again" << endl;
+        cin >> target; // User attempts to enter target nodes
+    }
 
     initialise();
     dijkstra();

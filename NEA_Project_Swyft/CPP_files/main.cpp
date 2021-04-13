@@ -5,7 +5,7 @@
 
 /* Todo: 
  [*] Add Djikstra's algorithm to find the shortest path ordinarily [DONE]
-  * Optimise so the dimensions of cost are equal to the number of vertices, saving space
+  [*] Optimise so the dimensions of cost are equal to the number of vertices, saving space
   [*] Find road lengths
  * Add Basic UI
  [*] Take into account the timings of the traffic lights (when they are green)
@@ -41,7 +41,9 @@ int main() {
 	}
 	// Vector matrix is now complete and ready to use
 
-	vector<int> road_lengths = inputs_for_dijkstra(roads, matrix, 7);
+	
+
+	vector<int> road_lengths = inputs_for_dijkstra(roads, matrix);
 	print_array(road_lengths);
 
 	// REMEMBER: WE ARE NOT USING 'ROADS' FOR THE LIGHTS FUNCTIONALITY, WE ARE USING THE NUMBER OF ROADS
@@ -82,24 +84,25 @@ int main() {
 	for (int i{0}; i < seqs[0].size(); i++) 
 	{
 		final_seq.clear();
-		for (int j{0}; j < roads; j++) // This fills up the vals the correct values
+		for (int j{0}; j < roads; j++) // This fills up vals with the correct (ideal) values
 		{
 			vals.push_back(seqs[0][i] + times[j]);
 		}
 
-		// next, get final seq
+		// next, get final seq using predefined function, which takes the actual values from real traffic
+		// lights and uses the ones closest to the ideal values
 		final_seq = get_final_seq(seqs, vals, final_seq, le);
-		// Display contents of final seq - see if it works!
-		cout << "Size of final_seq: " << final_seq.size() << endl;
 
 		// For when the size is as it should be
 		if (final_seq.size() == roads) print_array(final_seq);
+		
+		// For when the size is too large and some items need to be removed as it won't fit
 		else if (final_seq.size() > roads)
 		{
-			vector<int> sub_final(&final_seq[0], &final_seq[3]); // Takes just the first 3 terms
-			print_array(sub_final);
+			vector<int> sub_final(&final_seq[0], &final_seq[roads]); // Truncates the list to fit
+			print_array(sub_final); // dispays this
 		}
-		vals.clear();
+		vals.clear(); // clears the vals array to update the for the new year
     }
     // interface();
     
