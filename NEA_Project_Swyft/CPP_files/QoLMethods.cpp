@@ -54,6 +54,13 @@ void print_array(vector<double> inp_array) {
 	cout << endl;
 }
 
+void print_array(vector<string> inp_array) {
+	for (int i{0}; i < inp_array.size(); i++) {
+		cout << inp_array[i] << ' ';
+	}
+	cout << endl;
+}
+
 // Add inputs directly to a a vector from cin
 vector<int> vec_add(vector<int> x, size_t length) {
 	int inp;

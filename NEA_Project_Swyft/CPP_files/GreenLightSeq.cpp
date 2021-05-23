@@ -48,15 +48,16 @@ vector<int> get_seq(int light_pos) {
 	total_duration = green_duration + red_duration;
 
 	terms_per_day =
-		(int)(((21600 - green_duration - 2 * red_duration) / (2 * total_duration)) + 1); // Edited so that only the first hour is recorded instead of the whole day.
+		(int)(((172800 - green_duration - 2 * red_duration) / (2 * total_duration)) + 1); // Edited so that
+		// only the first hour is recorded instead of the whole day.
 	//cout << "terms per day: " << terms_per_day << endl;
 	
 	vector<int> seq;  // This will hold the final sequence for the traffic light
 
 	for (int i{0}; i < terms_per_day; i++) 
 	{
-		seq.push_back(red_duration + green_duration / 2 + i * total_duration); // green_duration/2 as we want the midpoint
+		seq.push_back(red_duration + green_duration / 2 + i * total_duration); // green_duration/2,
+		// as we want the midpoint
 	}
-
 	return seq;
 }

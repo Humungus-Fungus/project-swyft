@@ -4,7 +4,7 @@
 #include <vector> // manipulation and use of vectors
 #include "../FunctionDeclarations.h" // Allows it to be used by main
 
-using namespace std; // saves typing std at the start
+using namespace std; // saves typing 'std::' at the start of many functions
 
 string get_cost_matrix(int &node_number){
     int distance{0}; // Represents the weight of each connection in a weighted graph [manual]
@@ -15,9 +15,22 @@ string get_cost_matrix(int &node_number){
     vector<int> vec_raw_matrix; // Takes the raw matrix from the external file without processing fully
     bool is_automatic{1}; // Option for menu
     
-    cout<<"Manual or automatic? (0 means manual, 1 means automatic)" << endl;
-    cin>>is_automatic; // Takes input for the 'is_automatic' variable
-
+    string is_automatic_inp; // Will store input as a string to be validated without errors
+    cout<<"Manual or automatic? (0 means manual, 1 means automatic)" << endl; // output asking for type of
+    // cost matrix generation
+    do {
+        cin>>is_automatic_inp; // Takes input for the 'is_automatic' variable
+        if (is_automatic_inp == "zero" || is_automatic_inp == "ZERO" || is_automatic_inp == "Zero")
+        is_automatic_inp = "0";
+        else if (is_automatic_inp == "one" || is_automatic_inp == "ONE" || is_automatic_inp == "One") 
+        is_automatic_inp = "1";
+        else if (is_automatic_inp != "0" && is_automatic_inp != "1")
+        cout << "Please enter 0 or 1" << endl;
+    }
+    while (is_automatic_inp != "0" && is_automatic_inp != "1");
+    
+    is_automatic = stoi(is_automatic_inp);
+    
     // Automatic
     // Parsing data from a database
     if (is_automatic) {
@@ -69,25 +82,40 @@ string get_cost_matrix(int &node_number){
         {        
             cout << "Distances of neighbors from Node " << i << ": " << endl;
             
+            string str_distance;
+            bool flag {0};
             while (true) // infinite loop, will get broken soon
             {
-                cin>>distance; // inputs the distance
+                cin>>str_distance; // inputs the distance, but as string for validation
+                flag = true; // The input is initially assumed to be valid, but this could change when checking
+                for (int i {0}; i < str_distance.length(); i++)  // Looping through the input
+                {
+                    if ((!isdigit(str_distance[i]) && str_distance[i] != '-') || // If each character is a digit OR
+                     (str_distance[i] == '-' && i == str_distance.length()-1)) // the characrer is a '-' sign but it's 
+                     // at the end of the input, then the input isn't valid
+                     {
+                        cout << "invalid number, enter distance once again" << endl; // output to user
+                        flag = false; // Flag set to false as the number is invalid
+                    } 
+                }
+                if (!flag) continue; // If the flag was set to false, then this restarts the loop
                 cout<<' '<<endl; // gap
-                if (distance == -1) // if the user enters '-1', then the program moves onto the next node
+                if (str_distance == "-1") // if the user enters '-1', then the program moves onto the next node
                 {
                     cout<<"-Next node-"<<endl;
-                    first_time = false; // it is no longer the first loop, and so this variable is set to false
+                    first_time = false; // it is no longer the first loop, so this variable is set to false
                     break; // breaking out of the infinite loop
                 }
-                string_matrix += to_string(distance) + " "; // The final string version of the matrix will be
+                string_matrix += str_distance + " "; // The final string version of the matrix will be
                 // created using the distances
 
-                (first_time) ? node_count++ : node_count+=0; // Each extra distance we add creates a new instance of a node
+                (first_time) ? node_count++ : node_count+=0; // Each extra distance we add creates a new 
+                // instance of a node, but only the first time through
             }
             string_matrix += '\n'; // adds a newline character to string matrix to signify the end of a row
             
         }
-        cout<< "Manual string matrix: " << string_matrix;
+        cout<< "Manual string matrix: " << string_matrix; // Displays the matrix to the user
     }
 
     node_number = node_count; // Node count should also be extracted. It'll be useful for dijkstra

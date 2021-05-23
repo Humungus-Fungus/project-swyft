@@ -58,7 +58,7 @@ int main() {
 	// Now seqs is ready, and in its final form.
 	for (int i{0}; i < roads; i++) 
 	{
-		vector<int> seq = get_seq(i); // get_seq(i==8) creates an error
+		vector<int> seq = get_seq(i); // get_seq(i==8) creates an get)
 		seqs.push_back(seq);
 	}
 
@@ -94,15 +94,15 @@ int main() {
 		final_seq = get_final_seq(seqs, vals, final_seq, le);
 
 		// For when the size is as it should be
-		if (final_seq.size() == roads) print_array(final_seq);
+		if (final_seq.size() == roads) print_array(time_convert(final_seq));
 		
 		// For when the size is too large and some items need to be removed as it won't fit
 		else if (final_seq.size() > roads)
 		{
 			vector<int> sub_final(&final_seq[0], &final_seq[roads]); // Truncates the list to fit
-			print_array(sub_final); // dispays this
+			print_array(time_convert(sub_final)); // dispays this
 		}
-		vals.clear(); // clears the vals array to update the for the new year
+		vals.clear(); // clears the vals array to update the final seqs for the next light
     }
     // interface();
     

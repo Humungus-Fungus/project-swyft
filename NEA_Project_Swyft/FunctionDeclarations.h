@@ -10,6 +10,7 @@ void print_array(int[], size_t);
 void print_array(double[], size_t);
 void print_array(vector<int>);
 void print_array(vector<double>);
+void print_array(vector<string>);
 
 // returns the biggest of the two
 int max(int,int);
@@ -50,3 +51,6 @@ vector<int> get_seq(int);
 
 // Gets the final sequence
 vector<int> get_final_seq(vector<vector<int>>,vector<int>,vector<int>,const int le=5,int inc=0);
+
+// Convert to hh:mm:ss
+vector<string> time_convert(vector<int>);
