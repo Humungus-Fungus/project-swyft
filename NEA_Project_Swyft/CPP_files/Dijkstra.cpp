@@ -136,43 +136,50 @@ vector<int> inputs_for_dijkstra(int roads, vector<int> matrix) // Method which o
         }
     }
     
-    bool start_flag {1};
-    string str_start_node;
+    bool start_flag {1}; // A simple flag, can be true or false. True represents faulty input and false represents valid input
+    string str_start_node; // The start node but as a string (easier to manipulate than an integer)
 
-    while (start_flag) {
-        cout << "Enter the start node: ";
+    while (start_flag) 
+    {
+        cout << "Enter the start node: "; // Takes input from the user for the start node
         cin >> str_start_node; // User enters start node
 
-        start_flag = false;
+        start_flag = false; // The flag is set to false for now till proven true
 
-        for (int i{0}; i < str_start_node.length(); i++)
-        if (!isdigit(str_start_node[i])) start_flag = true;
-        if (!start_flag && (stoi(str_start_node) >= vertices || stoi(str_start_node) < 0)) start_flag = true;
-        if (start_flag) cout << "Invalid start node, try again" << endl;
+        for (int i{0}; i < str_start_node.length(); i++) if (!isdigit(str_start_node[i])) start_flag = true; // checking whether each entered
+        // character is a digit
+        if (!start_flag && (stoi(str_start_node) >= vertices || stoi(str_start_node) < 0)) start_flag = true; // Checking whether the start
+        // flag is still false and is not greater than the number of nodes nor less than 0, else start flag is set to true
+        if (start_flag) cout << "Invalid start node, try again" << endl; // If the start flag is true, then tells the user that input is
+        // invalid
     }
 
-    start_node = stoi(str_start_node);
-    cout << "Done." << endl;
+    start_node = stoi(str_start_node); // once the input is confirmed to be valid, it is stored as an integer
+    cout << "Done." << endl; // outputs the message "done" to the user
 
-    string str_target_node;
-    bool target_flag {1};
+    string str_target_node; // The target node but as a string (easier to manipulate than an integer)
+    bool target_flag {1}; // A simple flag, can be true or false. True represents faulty input and false represents valid input
 
-    while (target_flag) {
-        target_flag = false;
-        cout << "Please enter the target node: ";
-        cin>> str_target_node;
+    while (target_flag) 
+    {
+        target_flag = false; // The flag is set to false for now till proven true
+        cout << "Please enter the target node: "; // Takes input from the user for the target node
+        cin>> str_target_node; // User enters target node
 
 
-        for (int i{0}; i < str_target_node.length(); i++)
-        if (!isdigit(str_target_node[i])) target_flag = true;
+        for (int i{0}; i < str_target_node.length(); i++) if (!isdigit(str_target_node[i])) target_flag = true; // Checking whether each
+        // entered character is a digit        
         if (!target_flag && (stoi(str_target_node) >= vertices || stoi(str_target_node) < 0 || str_target_node == str_start_node)) target_flag = true;
-        if (target_flag) cout << "Invalid target node, try again" << endl;
+        // Checking if the target node is still valid and if it's greater than or equal to vertices or less than 0, or equal to the start node,
+        // all of which is invalid
+        if (target_flag) cout << "Invalid target node, try again" << endl; // If the flag is true, then the data is invalid and this is output
+        // to the user
     }
 
     target = stoi(str_target_node); // target node turns from string to integer
 
-    initialise();
-    dijkstra();
+    initialise(); // The initalise method is run
+    dijkstra(); // The dijkstra method is run
     vector<int> road_lens = display(target); // gets the road lengths from the display function
     return road_lens; // returns the lengths of the roads for other methods to use
 }
