@@ -5,7 +5,11 @@
 
 /* Todo: 
  [*] Add Djikstra's algorithm to find the shortest path ordinarily [DONE]
+<<<<<<< HEAD
   [*] Optimise so the dimensions of cost are equal to the number of vertices, saving space
+=======
+  * Optimise so the dimensions of cost are equal to the number of vertices, saving space
+>>>>>>> 4355f2fe2916c5394d92f4641a0f4b1e75215fd7
   [*] Find road lengths
  * Add Basic UI
  [*] Take into account the timings of the traffic lights (when they are green)
@@ -41,9 +45,13 @@ int main() {
 	}
 	// Vector matrix is now complete and ready to use
 
+<<<<<<< HEAD
 	
 
 	vector<int> road_lengths = inputs_for_dijkstra(roads, matrix);
+=======
+	vector<int> road_lengths = inputs_for_dijkstra(roads, matrix, 7);
+>>>>>>> 4355f2fe2916c5394d92f4641a0f4b1e75215fd7
 	print_array(road_lengths);
 
 	// REMEMBER: WE ARE NOT USING 'ROADS' FOR THE LIGHTS FUNCTIONALITY, WE ARE USING THE NUMBER OF ROADS
@@ -58,7 +66,11 @@ int main() {
 	// Now seqs is ready, and in its final form.
 	for (int i{0}; i < roads; i++) 
 	{
+<<<<<<< HEAD
 		vector<int> seq = get_seq(i); // get_seq(i==8) creates an get)
+=======
+		vector<int> seq = get_seq(i); // get_seq(i==8) creates an error
+>>>>>>> 4355f2fe2916c5394d92f4641a0f4b1e75215fd7
 		seqs.push_back(seq);
 	}
 
@@ -84,11 +96,16 @@ int main() {
 	for (int i{0}; i < seqs[0].size(); i++) 
 	{
 		final_seq.clear();
+<<<<<<< HEAD
 		for (int j{0}; j < roads; j++) // This fills up vals with the correct (ideal) values
+=======
+		for (int j{0}; j < roads; j++) // This fills up the vals the correct values
+>>>>>>> 4355f2fe2916c5394d92f4641a0f4b1e75215fd7
 		{
 			vals.push_back(seqs[0][i] + times[j]);
 		}
 
+<<<<<<< HEAD
 		// next, get final seq using predefined function, which takes the actual values from real traffic
 		// lights and uses the ones closest to the ideal values
 		final_seq = get_final_seq(seqs, vals, final_seq, le);
@@ -103,6 +120,21 @@ int main() {
 			print_array(time_convert(sub_final)); // dispays this
 		}
 		vals.clear(); // clears the vals array to update the final seqs for the next light
+=======
+		// next, get final seq
+		final_seq = get_final_seq(seqs, vals, final_seq, le);
+		// Display contents of final seq - see if it works!
+		cout << "Size of final_seq: " << final_seq.size() << endl;
+
+		// For when the size is as it should be
+		if (final_seq.size() == roads) print_array(final_seq);
+		else if (final_seq.size() > roads)
+		{
+			vector<int> sub_final(&final_seq[0], &final_seq[3]); // Takes just the first 3 terms
+			print_array(sub_final);
+		}
+		vals.clear();
+>>>>>>> 4355f2fe2916c5394d92f4641a0f4b1e75215fd7
     }
     // interface();
     
