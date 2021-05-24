@@ -1,0 +1,117 @@
+WinManager:
+  HomeScreen:
+    id: home
+    name: "home"
+
+    FloatLayout:
+      Button:
+        pos_hint: {"center_x": 0.55, "center_y": 0.625}
+        size_hint: 0.45, 0.2
+        on_release:
+          root.get_screen("home").on_release()
+
+      Image:
+        source: "ImageResources/WoodenButton.png"
+        pos_hint: {"center_x": 0.55, "center_y": 0.625}
+        size_hint: 0.5, 0.25
+
+      Button:
+        text: "Check map"
+        pos_hint: {"center_x": 0.5, "center_y": 0.249}
+        size_hint: 1, 0.43
+        on_release:
+          app.root.current = "map"
+          root.transition.direction = "left"
+
+      Image:
+        size_hint: 1, 0.5
+        source: "ImageResources/OpenMapButton.png"
+
+      Button:
+        pos_hint: {"x":0.827, "top":0.969}
+        size_hint: 0.14, 0.19
+        on_release:
+          app.root.current = "settings"
+          root.transition.direction = "right"
+
+      Image:
+        source: "ImageResources/voice_wave.png"
+        pos_hint: {"x":0.8, "top":0.825}
+        size_hint: 0.2, 0.4
+
+      Image:
+        source: "ImageResources/cog.png"
+        pos_hint: {"x":0.775, "top":0.975}
+        size_hint: 0.225, 0.225
+
+
+  MapScreen:
+    id: map
+    name: "map"
+
+    FloatLayout:
+
+      Label:
+        text: "Hello"
+        size_hint: 0.3, 0.4
+        pos_hint: {"x": 0.5, "y": 0.5}
+
+      MapView:
+        lat: 10
+        lon: 10
+        zoom: 5
+
+        MapMarkerPopup:
+          source: "ImageResources/cust_marker3.png"
+          lat: 10
+          lon: 10
+
+        MapMarkerPopup:
+          source: "ImageResources/car_marker3.png"
+          lat: 0
+          lon: 0
+
+        Button:
+          text: "Back"
+          pos_hint: {"right": 1, "bottom": 1}
+          on_release:
+            app.root.current = "home"
+            root.transition.direction = "right"
+
+  SettingsScreen:
+    name: "settings"
+
+    FloatLayout:
+
+      Label:
+        text: "Home Location: "
+        size_hint: 0.2, 0.1
+        pos_hint: {"left":1, "top":1}
+
+      LabelB:
+        id: home_loc
+        bcolor: 1, 1, 1, 1
+        color: 0, 0, 0, 1
+        text: "home"
+        size_hint: 0.2, 0.1
+        pos_hint: {"right":0.4, "top":1}
+
+      Button:
+        text: "Change"
+        background_color: 1, 0.5, 0, 1
+        size_hint: 0.4, 0.19
+        pos_hint: {"left":1, "top":0.89}
+        on_release:
+          home_loc.text = root.get_screen("settings").home_loc_inp.text
+
+      Image:
+        size_hint: 0.4, 0.2
+        pos_hint: {"left":1, "top":0.9}
+        source: "ImageResources/ChangeButton.png"
+
+      Button:
+        text: "Return"
+        size_hint: 0.1, 0.1
+        on_release:
+          app.root.current = "home"
+          root.transition.direction = "left"
