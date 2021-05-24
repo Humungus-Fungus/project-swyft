@@ -62,5 +62,5 @@ vector<int> get_seq(int light_pos) {
 		seq.push_back(red_duration + green_duration / 2 + i * total_duration); // green_duration/2,
 		// as we want the midpoint
 	}
-	return seq;
+	return seq; // Outputs the sequence vector
 }
