@@ -73,7 +73,6 @@ string get_cost_matrix(int &node_number){
             // the matrix, and add a space as a delimiter
         }
 
-        cout << "Final node count for automatic: " << node_count << endl;
     } else {
     // Manual
     // Iterating through each node
@@ -115,7 +114,6 @@ string get_cost_matrix(int &node_number){
             string_matrix += '\n'; // adds a newline character to string matrix to signify the end of a row
             
         }
-        cout<< "Manual string matrix: " << string_matrix; // Displays the matrix to the user
     }
 
     node_number = node_count; // Node count should also be extracted. It'll be useful for dijkstra
