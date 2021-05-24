@@ -11,12 +11,8 @@
 // "inc" is used to measure the recursion depth
 // "le" represents leniency (how far you can deviate from the ideal)
 
-<<<<<<< HEAD
 vector<int> get_final_seq(vector<vector<int>> seqs, vector<int> vals, vector<int> final, 
 const int le/*=5*/, int inc/*=0*/) 
-=======
-vector<int> get_final_seq(vector<vector<int>> seqs, vector<int> vals, vector<int> final, const int le/*=5*/, int inc/*=0*/) 
->>>>>>> 4355f2fe2916c5394d92f4641a0f4b1e75215fd7
 {
 	int val = vals[inc];
 
