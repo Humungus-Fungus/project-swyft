@@ -1,11 +1,12 @@
-#include <iostream>
-#include "../FunctionDeclarations.h"
+#include <iostream> // Needed for input and output 
+#include "../FunctionDeclarations.h" // Needed for using the program in the solution
 
-using namespace std;
+using namespace std; // Saves time
 
 float calc_unknown(float param1, float param2, char req) {
 	// vel = disp/time
 
+	// Depending on the value of req (which value is required), a different branch is chosen
 	switch (req) {
 	case 'v':
 		return param1 / param2; // Here, param1 is disp and param2 is time

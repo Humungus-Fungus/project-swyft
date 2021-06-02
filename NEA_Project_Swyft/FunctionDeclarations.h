@@ -28,6 +28,7 @@ void text_write(int,string);
 
 // Reads from a text file
 const int text_read(string);
+const string text_read(string,string);
 
 // Interface
 void interface();

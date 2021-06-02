@@ -142,7 +142,7 @@ vector<int> inputs_for_dijkstra(int roads, vector<int> matrix) // Method which o
     while (start_flag) 
     {
         cout << "Enter the start node: "; // Takes input from the user for the start node
-        cin >> str_start_node; // User enters start node
+        str_start_node = text_read("../CommonFolder/start_node.txt", "string version"); // Start node obtained from external text file
 
         start_flag = false; // The flag is set to false for now till proven true
 
@@ -150,8 +150,12 @@ vector<int> inputs_for_dijkstra(int roads, vector<int> matrix) // Method which o
         // character is a digit
         if (!start_flag && (stoi(str_start_node) >= vertices || stoi(str_start_node) < 0)) start_flag = true; // Checking whether the start
         // flag is still false and is not greater than the number of nodes nor less than 0, else start flag is set to true
-        if (start_flag) cout << "Invalid start node, try again" << endl; // If the start flag is true, then tells the user that input is
-        // invalid
+        if (start_flag) 
+        {
+            cout << "Invalid start node, try again" << endl; // If the start flag is true, then tells the user that input is
+            // invalid
+            text_write(2, "../CommonFolder/InvalidMsgBackend.txt");
+        }
     }
 
     start_node = stoi(str_start_node); // once the input is confirmed to be valid, it is stored as an integer
@@ -162,18 +166,22 @@ vector<int> inputs_for_dijkstra(int roads, vector<int> matrix) // Method which o
 
     while (target_flag) 
     {
-        target_flag = false; // The flag is set to false for now till proven true
         cout << "Please enter the target node: "; // Takes input from the user for the target node
-        cin>> str_target_node; // User enters target node
+        str_target_node = text_read("../CommonFolder/target_node.txt", "string version"); // Target node obtained from text file
 
+        target_flag = false; // The flag is set to false for now till proven true
 
         for (int i{0}; i < str_target_node.length(); i++) if (!isdigit(str_target_node[i])) target_flag = true; // Checking whether each
         // entered character is a digit        
         if (!target_flag && (stoi(str_target_node) >= vertices || stoi(str_target_node) < 0 || str_target_node == str_start_node)) target_flag = true;
         // Checking if the target node is still valid and if it's greater than or equal to vertices or less than 0, or equal to the start node,
         // all of which is invalid
-        if (target_flag) cout << "Invalid target node, try again" << endl; // If the flag is true, then the data is invalid and this is output
-        // to the user
+        if (target_flag) 
+        {
+            cout << "Invalid target node, try again" << endl; // If the flag is true, then the data is invalid and this is output
+            // to the user
+            text_write(3, "../CommonFolder/InvalidMsgBackend.txt");
+        }
     }
 
     target = stoi(str_target_node); // target node turns from string to integer

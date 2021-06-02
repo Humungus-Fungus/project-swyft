@@ -19,15 +19,19 @@ string get_cost_matrix(int &node_number){
     cout<<"Manual or automatic? (0 means manual, 1 means automatic)" << endl; // output asking for type of
     // cost matrix generation
     do {
-        cin>>is_automatic_inp; // Takes input for the 'is_automatic' variable
+        is_automatic_inp = text_read("../CommonFolder/automatic.txt", "string version"); // Getting the value from external text file
         if (is_automatic_inp == "zero" || is_automatic_inp == "ZERO" || is_automatic_inp == "Zero") // If the input matches any of these,
         is_automatic_inp = "0"; // Then set it to 0
         else if (is_automatic_inp == "one" || is_automatic_inp == "ONE" || is_automatic_inp == "One") // If the input matches any of these,
         is_automatic_inp = "1"; // Then set it to 1
         else if (is_automatic_inp != "0" && is_automatic_inp != "1") // If the input isn't either of these
-        cout << "Please enter 0 or 1" << endl; // Then display error message for user, as input is invalid
+        {
+            cout << "Please enter 0 or 1" << endl; // Then display error message for user, as input is invalid
+            cout << "This is " <<is_automatic_inp;
+            text_write(1, "../CommonFolder/InvalidMsgBackend.txt");
+        }
     }
-    while (is_automatic_inp != "0" && is_automatic_inp != "1"); // repeat as long as input is not ither 0 or 1
+    while (is_automatic_inp != "0" && is_automatic_inp != "1"); // repeat as long as input is not either 0 or 1
     
     is_automatic = stoi(is_automatic_inp); // Once input has been validated, it can be stored as an integer
     
