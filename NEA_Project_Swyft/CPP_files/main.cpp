@@ -84,7 +84,7 @@ int main() {
 
 	ofstream file;
 	file.open("../CommonFolder/GreenTimesForUI.txt", std::ios::out);
-	file << "\n ";
+	file << "\n";
 	file.close();
 
 
