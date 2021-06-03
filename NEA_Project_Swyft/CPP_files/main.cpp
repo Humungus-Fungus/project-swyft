@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream>
 #include "../FunctionDeclarations.h"
 
 /* Todo: 
@@ -81,6 +82,12 @@ int main() {
 	vector<int> vals;
 	
 
+	ofstream file;
+	file.open("../CommonFolder/GreenTimesForUI.txt", std::ios::out);
+	file << "\n ";
+	file.close();
+
+
 	for (int i{0}; i < seqs[0].size(); i++) 
 	{
 		final_seq.clear();
@@ -94,13 +101,21 @@ int main() {
 		final_seq = get_final_seq(seqs, vals, final_seq, le);
 
 		// For when the size is as it should be
-		if (final_seq.size() == roads) print_array(time_convert(final_seq));
-		
+		if (final_seq.size() == roads) 
+		{
+			for (int i{0}; i < final_seq.size(); i++)
+			{
+				text_write(time_convert({final_seq[i]})[0], "../CommonFolder/GreenTimesForUI.txt");
+			}
+		}
 		// For when the size is too large and some items need to be removed as it won't fit
 		else if (final_seq.size() > roads)
 		{
 			vector<int> sub_final(&final_seq[0], &final_seq[roads]); // Truncates the list to fit
-			print_array(time_convert(sub_final)); // dispays this
+			for (int i{0}; i < sub_final.size(); i++)
+			{
+				text_write(time_convert({sub_final[i]})[0], "../CommonFolder/GreenTimesForUI.txt");
+			}
 		}
 		vals.clear(); // clears the vals array to update the final seqs for the next light
     }

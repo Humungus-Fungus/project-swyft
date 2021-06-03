@@ -7,10 +7,19 @@ using namespace std;
 
 // Edits a text file
 void text_write(int val, string loc) {
-	ofstream file {loc};
+	ofstream file;
+	file.open(loc, std::ios::app);
 	file << val;
 	file.close();
 }
+
+// Edits a text file
+void text_write(string val, string loc) {
+	ofstream file;
+	file.open(loc, std::ios::app);
+	file << val << endl;
+	file.close();}
+
 
 // Reads from a text file
 const int text_read(string loc) 

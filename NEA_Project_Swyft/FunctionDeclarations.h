@@ -25,6 +25,7 @@ void keep_open();
 
 // Writes to a text file
 void text_write(int,string);
+void text_write(string,string);
 
 // Reads from a text file
 const int text_read(string);
