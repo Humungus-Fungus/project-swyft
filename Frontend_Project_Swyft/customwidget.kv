@@ -88,21 +88,51 @@ WinManager:
         size_hint: 0.2, 0.1
         pos_hint: {"left":1, "top":1}
 
-      LabelB:
-        id: home_loc
-        bcolor: 1, 1, 1, 1
-        color: 0, 0, 0, 1
-        text: "home"
-        size_hint: 0.2, 0.1
-        pos_hint: {"right":0.4, "top":1}
-
       Button:
         text: "Change"
         background_color: 1, 0.5, 0, 1
         size_hint: 0.4, 0.19
         pos_hint: {"left":1, "top":0.89}
         on_release:
-          home_loc.text = root.get_screen("settings").home_loc_inp.text
+          root.get_screen("settings").new_home_loc = root.get_screen("settings").home_loc_inp.text
+          root.get_screen("settings").update_home_loc()
+
+      Button:
+        text: "Change"
+        size_hint: 0.4, 0.19
+        pos_hint: {"right":0.8, "top":0.89}
+        on_release:
+          root.get_screen("settings").new_name = root.get_screen("settings").username.text
+          root.get_screen("settings").update_name()
+
+      Button:
+        text: "Add Vehicle"
+        size_hint: 0.4, 0.19
+        pos_hint: {"left": 1, "top":0.5}
+        on_release:
+          root.get_screen("settings").show_vehicle_add()
+
+      Image:
+        source: "ImageResources/AddVehicle.png"
+        pos_hint: {"left": 1, "top":0.51}
+        size_hint: 0.41, 0.22
+
+      Button:
+        text: "Done"
+        size_hint: 0.38, 0.19
+        pos_hint: {"left": 0.1, "top": 0.3}
+        on_release:
+          root.get_screen("settings").add_vehicle()
+
+      Image:
+        size_hint: 0.39, 0.19
+        pos_hint: {"left": 1, "top": 0.3}
+        source: "ImageResources/SaveVehicleData.png"
+
+      Image:
+        size_hint: 0.4, 0.2
+        pos_hint: {"right":0.8, "top":0.9}
+        source: "ImageResources/ChangeButton.png"
 
       Image:
         size_hint: 0.4, 0.2
@@ -111,7 +141,8 @@ WinManager:
 
       Button:
         text: "Return"
-        size_hint: 0.1, 0.1
+        size_hint: 0.2, 0.2
+        pos_hint: {"right": 0.92, "center_y": 0.15}
         on_release:
           app.root.current = "home"
           root.transition.direction = "left"
