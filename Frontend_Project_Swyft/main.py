@@ -14,18 +14,24 @@ from kivy_garden.mapview import MapView, MapMarkerPopup  # Allows maps to be use
 from kivy.clock import Clock
 import pyodbc  # This module is for connecting to my database and extracting data from it/inserting data into it
 
-conn = pyodbc.connect("DRIVER={SQL Server Native Client 11.0};UID=Svangulfur;WSID=COMPUTEROFSVANG;APP={Microsoft® Windows® Operating System};Trusted_Connection=Yes;SERVER=COMPUTEROFSVANG;Description=tutorial")
+conn = pyodbc.connect("DRIVER={SQL Server Native Client 11.0};UID=Svangulfur;WSID=COMPUTEROFSVANG;APP={Microsoft® Wind"
+                      "ows® Operating System};Trusted_Connection=Yes;SERVER=COMPUTEROFSVANG;Description=tutorial")
 cursor = conn.cursor()
+
+# We need to connect to the common folder in order to access the green light timings
+# Start node = Home location's Primary key
+# Target node is Primary key of location entered by user
+
 
 # Represents home screen
 class HomeScreen(Screen):
     def __init__(self, **kwargs):
         super(HomeScreen, self).__init__(**kwargs)  # Initialisation of the HomeScreen class
-        # Labels to store the latitude and longitude
-        self.rec_vel = ColoredLabels.LabelB(text="Recommended speed: \n15 km/h", pos_hint={"center_x": 0.4275, "top": 1},
+        self.rec_vel = ColoredLabels.LabelB(text="Recommended speed: \n15 km/h",
+                                            pos_hint={"center_x": 0.4275, "top": 1},
                                             size_hint=(0.25, 0.25), bcolor=(0.5, 0.5, 0.75, 1))
-        self.time_left = ColoredLabels.LabelB(text="Seconds till red: \n35", pos_hint={"center_x": 0.675, "top": 1}, size_hint=(0.25, 0.25),
-                                              bcolor=(0.1, 0.1, 0.1, 1))
+        self.time_left = ColoredLabels.LabelB(text="Seconds till red: \n35", pos_hint={"center_x": 0.675, "top": 1},
+                                              size_hint=(0.25, 0.25), bcolor=(0.1, 0.1, 0.1, 1))
 
         # Adds the widgets previously declared
         self.add_widget(self.rec_vel)
@@ -34,6 +40,14 @@ class HomeScreen(Screen):
         # Init time is the time left before the next light turns red
         self.init_time = 35  # 35 is a placeholder, it will eventually obtain this value from our database
         self.timer = 0
+
+        # Getting the data for the home location start node
+        cursor.execute("SELECT Location_ID FROM Locations, Driver WHERE Location_Name = Driver.Home_Location;")
+        home_location = cursor.fetchone()[0]
+
+        # NEXT: store this value in the 'start_node.txt' file
+        file = open("CommonFolder/start_node.txt", "w")
+        file.write(home_location)
 
     def on_release(self):
         self.update_func = Clock.schedule_interval(self.update, 1)
@@ -71,10 +85,12 @@ class SettingsScreen(Screen):
     def __init__(self, **kwargs):
         super(SettingsScreen, self).__init__(**kwargs)  # initialisation
 
-        # This line is the contents varuables for which
+        # This line is the contents variables for which
         content = Button(text="Enter the Model, Fuel Volume in \nLitres, and Fuel "
-                              "Efficiency in litres\n per kilometer, in that exact order,\nseparated by a comma and a space\n\n     Click to Close")
-        self.popup = Popup(title="Add Vehicle", content=content, size_hint=(None, None), size=(300, 200), pos_hint={"center_x": 0.5, "center_y": 0.5})
+                              "Efficiency in litres\n per kilometer, in that exact order,\nseparated by a comma and a"
+                              " space\n\n     Click to Close")
+        self.popup = Popup(title="Add Vehicle", content=content, size_hint=(None, None), size=(300, 200),
+                           pos_hint={"center_x": 0.5, "center_y": 0.5})
         content.bind(on_release=self.popup.dismiss)
 
         content2 = Button(text="No data was entered.\nPress the above button first")
@@ -83,13 +99,15 @@ class SettingsScreen(Screen):
         content2.bind(on_release=self.warning.dismiss)
 
         # This is the location set as the home address. Can be changed at any time
-        self.home_loc_inp = TextInput(pos_hint={"left": 1, "top": 0.7}, size_hint=(0.4, 0.1), text="Enter Home Location",
-                                      multiline=False)  # Creates a text input box for the home location
+        self.home_loc_inp = TextInput(pos_hint={"left": 1, "top": 0.7}, size_hint=(0.4, 0.1),
+                                      text="Enter Home Location", multiline=False)  # Creates a text input box for the
+        # home location
         self.new_home_loc = ""  # This will store the new home location entered by the user
         cursor.execute("SELECT Home_Location FROM Driver WHERE Driver_ID = 1")  # Executes this SQL command
         home_loc_text = cursor.fetchone()[0]  # Takes the first value queried from the database
-        self.home_loc = ColoredLabels.LabelB(text=home_loc_text, size_hint=(0.2, 0.1), pos_hint={"right": 0.4, "top": 1}
-                                             , bcolor=(1, 1, 1, 1), color=(0, 0, 0, 1))  # Creates the label which holds
+        self.home_loc = ColoredLabels.LabelB(text=home_loc_text, size_hint=(0.2, 0.1),
+                                             pos_hint={"right": 0.4, "top": 1}, bcolor=(1, 1, 1, 1),
+                                             color=(0, 0, 0, 1))  # Creates the label which holds
         # the home address
 
         self.username = TextInput(pos_hint={"right": 0.8, "top": 0.7}, size_hint=(0.4, 0.1), text="Enter Name Here")  #
@@ -100,15 +118,17 @@ class SettingsScreen(Screen):
         # the user to where their name is displayed
         cursor.execute("SELECT Driver_Name FROM Driver WHERE Driver_ID = 1")  # Executes this SQL command
         name_text = cursor.fetchone()[0]  # Taking the first result from the previous query
-        self.display_name = ColoredLabels.LabelB(text=name_text, size_hint=(0.2, 0.1), pos_hint={"right": 0.8, "top": 1}
-                                                 , bcolor=(1, 1, 1, 1), color=(0, 0, 0, 1))  # Creating the label which
-        # will hold the value of the name
+        self.display_name = ColoredLabels.LabelB(text=name_text, size_hint=(0.2, 0.1),
+                                                 pos_hint={"right": 0.8, "top": 1}, bcolor=(1, 1, 1, 1),
+                                                 color=(0, 0, 0, 1))  # Creating the label which will hold the value of
+        # the name
 
         cursor.execute("SELECT COUNT (*) FROM Vehicles")  # Counts the number of records stored in the Vehicles table
         self.vehicle_count = cursor.fetchone()[0]  # Takes the first result
-        self.vehicle_add = Label(text="Vehicles recorded: " + str(self.vehicle_count), pos_hint={"left": 1, "top": 0.6}
-                                 , size_hint=(0.2, 0.1))  # Label which holds the vehicle count
-        self.vehicle_inp = TextInput(pos_hint={"right": 0.4, "top": 0.6}, size_hint=(0.2, 0.1), text="Enter Details Here")
+        self.vehicle_add = Label(text="Vehicles recorded: " + str(self.vehicle_count), pos_hint={"left": 1, "top": 0.6},
+                                 size_hint=(0.2, 0.1))  # Label which holds the vehicle count
+        self.vehicle_inp = TextInput(pos_hint={"right": 0.4, "top": 0.6}, size_hint=(0.2, 0.1),
+                                     text="Enter Details Here")
 
         self.add_widget(self.home_loc_inp)  # Adds this widget, the input for the home location
         self.add_widget(self.username)  # Adds the text input for the user's name
@@ -129,7 +149,7 @@ class SettingsScreen(Screen):
 
     # This method updates the stored home location of the user
     def update_home_loc(self):
-        sql_command = "UPDATE Driver SET Home_Location = '{}' WHERE Driver_ID = 1".format(self.new_home_loc) # Defining
+        sql_command = "UPDATE Driver SET Home_Location = '{}' WHERE Driver_ID = 1".format(self.new_home_loc)  # Defining
         # an SQL command
         cursor.execute(sql_command)  # Executing the previous SQL command
         cursor.execute("SELECT Home_Location FROM Driver WHERE Driver_ID = 1")  # Executes this SQL command
@@ -149,7 +169,7 @@ class SettingsScreen(Screen):
             # Creates an SQL command to add the new record into the Vehicles table
             cursor.execute(sql_command)  # Executes this SQL command
             conn.commit()  # Saves the changes
-            cursor.execute("SELECT COUNT (*) FROM Vehicles")  # Counts the number of records stored in the Vehicles table
+            cursor.execute("SELECT COUNT (*) FROM Vehicles")  # Counts number of records stored in the Vehicles table
             self.vehicle_count = cursor.fetchone()[0]  # Takes the first result
             self.vehicle_add.text = "Vehicles recorded: " + str(self.vehicle_count)
         except pyodbc.ProgrammingError:
