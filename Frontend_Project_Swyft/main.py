@@ -12,6 +12,7 @@ from kivy.uix.image import Image  # Allows images to be displayed in the UI
 from kivy.properties import *  # import all properties, which are used for things like storing input from the UI
 from kivy_garden.mapview import MapView, MapMarkerPopup  # Allows maps to be used, and markers to place on them
 from kivy.clock import Clock
+from datetime import datetime
 import pyodbc  # This module is for connecting to my database and extracting data from it/inserting data into it
 
 conn = pyodbc.connect("DRIVER={SQL Server Native Client 11.0};UID=Svangulfur;WSID=COMPUTEROFSVANG;APP={Microsoft® Wind"
@@ -27,44 +28,106 @@ cursor = conn.cursor()
 class HomeScreen(Screen):
     def __init__(self, **kwargs):
         super(HomeScreen, self).__init__(**kwargs)  # Initialisation of the HomeScreen class
-        self.rec_vel = ColoredLabels.LabelB(text="Recommended speed: \n15 km/h",
+
+        self.get_target_node()
+
+        self.rec_vel = ColoredLabels.LabelB(text="Recommended speed: \n{} km/h".format(15),
                                             pos_hint={"center_x": 0.4275, "top": 1},
                                             size_hint=(0.25, 0.25), bcolor=(0.5, 0.5, 0.75, 1))
         self.time_left = ColoredLabels.LabelB(text="Seconds till red: \n35", pos_hint={"center_x": 0.675, "top": 1},
                                               size_hint=(0.25, 0.25), bcolor=(0.1, 0.1, 0.1, 1))
 
+        # This creates the text input box to enter the destination's name
+        self.target_name = TextInput(text="Enter Destination Name", size_hint=(0.3, 0.25),
+                                     pos_hint={"left": 1, "top": 1})
+        # This creates the button that, when pressed, saves the data in the previously defined text box
+        self.enter_target = Button(text="Enter Target", size_hint=(0.3, 0.25), pos_hint={"left": 1, "top": 0.75})
+        # Whenever the button is pressed, the method get_target is called
+        self.enter_target.bind(on_release=self.get_target)
+
+        self.target = ""
+
         # Adds the widgets previously declared
         self.add_widget(self.rec_vel)
         self.add_widget(self.time_left)
+        self.add_widget(self.target_name)
+        self.add_widget(self.enter_target)
 
-        # Init time is the time left before the next light turns red
         self.init_time = 35  # 35 is a placeholder, it will eventually obtain this value from our database
         self.timer = 0
 
         # Getting the data for the home location start node
         cursor.execute("SELECT Location_ID FROM Locations, Driver WHERE Location_Name = Driver.Home_Location;")
-        home_location = cursor.fetchone()[0]
+        home_location = str(cursor.fetchone()[0])
 
         # NEXT: store this value in the 'start_node.txt' file
-        file = open("CommonFolder/start_node.txt", "w")
+        file = open("C:/Users/Svangulfur/PycharmProjects/project-swyft/CommonFolder/start_node.txt", "w")
         file.write(home_location)
 
+    # This method decides what happs after a button is released
     def on_release(self):
-        self.update_func = Clock.schedule_interval(self.update, 1)
-        Clock.schedule_once(self.stop, self.init_time+1)
+        self.update_func = Clock.schedule_interval(self.update, 1)  # Updates the clock by increasing it's value by one,
+        # which represents one second passing in real time
+        Clock.schedule_once(self.stop, self.init_time+1)  # increments the clock
 
+    # This method changes the value shown on the timer depending on how many seconds have passed
     def update(self, *args):
-        self.time_left.text = "Seconds till red:\n" + str(self.init_time - self.timer)
-        self.timer += 1
-        if self.init_time - self.timer > 2*self.init_time // 3:
-            self.time_left.bcolor = (0, 0.5, 0, 1)
-        elif self.init_time - self.timer > self.init_time // 3:
-            self.time_left.bcolor = (1, 0.65, 0, 1)
-        elif self.init_time - self.timer < self.init_time // 3:
-            self.time_left.bcolor = (0.5, 0, 0, 1)
+        self.time_left.text = "Seconds till red:\n" + str(self.init_time - self.timer)  # Displaying the time left
+        self.timer += 1  # timer increments
+        if self.init_time - self.timer > 2*self.init_time // 3:  # Here, if the timer is greater than 2/3 of it's inital value...
+            self.time_left.bcolor = (0, 0.5, 0, 1)  # The timer will be green
+        elif self.init_time - self.timer > self.init_time // 3:  # If the time left is greater than 1/3, then...
+            self.time_left.bcolor = (1, 0.65, 0, 1)  # The timer turns orange
+        elif self.init_time - self.timer < self.init_time // 3:  # If the time left is less than 1/3...
+            self.time_left.bcolor = (0.5, 0, 0, 1)  # The timer turns red
 
+    # Stops the timer, to prevent it going below 0
     def stop(self, *args):
-        self.update_func.cancel()
+        self.update_func.cancel()  # stops the timer
+
+    # Gets the target node as input from the user
+    def get_target(self):
+        self.target = self.target_name.text  # Takes the input from the input box
+        sql_command = "SELECT Location_ID FROM Locations WHERE Location_Name = '{}'".format(self.target)  # This command
+        # gets the ID of the location
+        cursor.execute(sql_command)  # Executing the aforementioned command
+        target_ID = cursor.fetchone()[0]  # Storing the output of the query
+        # Opens the target_node.txt file for the backend to know which node is the target node
+        target_file = open("C:/Users/Svangulfur/PycharmProjects/project-swyft/CommonFolder/target_node.txt", 'w')
+        target_file.write(target_ID)  # Stores the data in the external file
+
+    def get_target_node(self):
+        # Init time is the time left before the next light turns red
+        green_times_file = open("C:/Users/Svangulfur/PycharmProjects/project-swyft/CommonFolder/GreenTimesForUI.txt",
+                                'r')  # Obtaining the values for the green light
+        # timings
+        now = datetime.now()  # Getting the current time
+        time_format = "%H:%M"  # The format of the time we want to look for within GreenTimesForUI.txt
+        time = now.strftime(time_format)  # Getting the time right now into that format
+        time_values = green_times_file.readlines()  # Storing this data in a local variable
+        times = []  # This list will contain all the green light times relevant to the path chosen
+
+        nodes_file = open("C:/Users/Svangulfur/PycharmProjects/project-swyft/CommonFolder/RoadLength.txt")
+
+        lengths = nodes_file.readlines()
+        print(lengths)
+        print(time_values)
+        nodes = len(lengths)
+        if '\n' in lengths[0]:
+            lengths[0] = lengths[0][0]
+        if '\n' in time_values[0]:
+            time_values[0] = time_values[0][0]
+        print(lengths[0])
+        print(time_values[0])
+        #self.recommended_speed = int(lengths[0])/int(time_values[2])
+
+        for i in range(len(time_values)):  # For each time value within the file
+            if time in time_values[i]:  # If that time is the same as the current time to the nearest minute...
+                times = time_values[i:i + nodes]  # That time will be used, along with the times along the way of each
+                # traffic light that needs to be crossed
+                break
+
+
 
 
 # Represents the screen with the map

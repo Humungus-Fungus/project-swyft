@@ -3,7 +3,8 @@ import pyodbc
 import speech_recognition as sr
 
 conn = pyodbc.connect(
-    "DRIVER={SQL Server Native Client 11.0};UID=Svangulfur;WSID=COMPUTEROFSVANG;APP={Microsoft® Windows® Operating System};Trusted_Connection=Yes;SERVER=COMPUTEROFSVANG;Description=tutorial")
+    "DRIVER={SQL Server Native Client 11.0};UID=Svangulfur;WSID=COMPUTEROFSVANG;APP={Microsoft® Windows® Operating Syste"
+    "m};Trusted_Connection=Yes;SERVER=COMPUTEROFSVANG;Description=tutorial")
 cursor = conn.cursor()
 
 string_voice = ""  # This will hold the input of the user's voice as a string
@@ -29,6 +30,3 @@ try:
         raise sr.UnknownValueError
 except sr.UnknownValueError:
     print("Sorry, could you repeat that?")
-
-# Next steps:
-# Check what string_text is closest to, to make commands
